@@ -1,5 +1,4 @@
-Sistema de Gráfica — Controle de Pedidos com Python Usando Observer Pattern, Factory Method, Polimorfismo e Menu Interativo
-
+Sistema de Gráfica — Controle de Pedidos com Python Usando Observer Pattern, Factory Method, Polimorfismo.
 Este projeto é um sistema gráfico simples feito em Python, que permite:
 
 Criar pedidos baseados em tamanho (m²)
