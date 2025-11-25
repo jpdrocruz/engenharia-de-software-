@@ -38,12 +38,13 @@ o status do pedido muda
 
 um aviso é enviado
 
-Aulas:
+Utilizado nas aulas:
 
-Observador
+Observer:
 
 Cliente
 
-Pedido (Assunto)
+Factory: 
 
+Pedido
 gráficos-pedidos │ ├── main.py # Código principal com menu interativo └── README.md # Documentação do projeto
