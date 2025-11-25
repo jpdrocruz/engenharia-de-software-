@@ -1,49 +1,56 @@
-Sistema de Gráfica — Controle de Pedidos com Python Usando Observer Pattern, Factory Method, Polimorfismo.
-Este projeto é um sistema gráfico simples feito em Python, que permite:
+Sistema de Gráfica — Controle de Pedidos em Python com Observer, Factory Method e Polimorfismo
 
-Criar pedidos baseados em tamanho (m²)
+Este projeto é um sistema de gerenciamento de pedidos para gráfica, desenvolvido em Python, utilizando padrões modernos de projeto. Ele oferece um fluxo simples e eficiente para criação e acompanhamento de pedidos.
 
-Calcular automaticamente o preço conforme o material
+Funcionalidades do Sistema
 
-Notificar o cliente sempre que houver alteração
+Criar pedidos com base no tamanho em m²
 
-Alterar o status do pedido
+Calcular automaticamente o preço de acordo com o material selecionado
+
+Notificar o cliente sempre que houver alterações importantes
+
+Atualizar o status do pedido (em produção, finalizado etc.)
 
 Enviar mensagens para o cliente
 
-Visualizar o painel de produção com status 
+Visualizar o painel de produção com todos os pedidos e seus respectivos status
 
-Utilização de padrões de modern pattern
+Interface em menu de terminal para fácil navegação
 
 Tecnologias Utilizadas
 
-Python 
+Python
 
-Padrões de Projeto
+Padrões de Projeto Modernos
 
-Observer
+Observer (Observador)
 
-Método de fábrica
+Factory Method (Método de Fábrica)
 
 Polimorfismo
 
-Terminal com menu
+Padrões de Projeto Implementados
+🔹 Padrão Observer
 
-Padrões de Projeto Implementados Padrão Observer
+Utilizado para permitir que o cliente receba notificações sempre que:
 
-O cliente recebe notificações sempre que:
+O status do pedido for alterado
 
-o status do pedido muda
+Uma mensagem ou aviso for enviado
 
-um aviso é enviado
+Classes aplicadas:
 
-Utilizado nas aulas:
+Cliente (Observador)
 
-Observer:
+🔹 Factory Method
 
-Cliente
+Utilizado para criar pedidos de forma padronizada, facilitando a expansão do sistema.
 
-Factory: 
+Classe aplicada:
 
-Pedido
+Pedido (criação por fábrica)
 
+🔹 Polimorfismo
+
+Usado para permitir que diferentes tipos de pedidos ou materiais tenham cálculos específicos sem alterar o fluxo principal do código.
