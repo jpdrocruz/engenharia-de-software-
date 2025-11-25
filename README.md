@@ -12,25 +12,25 @@ Alterar o status do pedido
 
 Enviar mensagens para o cliente
 
-Visualizar o painel de produção com status colorido
+Visualizar o painel de produção com status 
 
-Utilização de padrões de projetos modernos
+Utilização de padrões de modern pattern
 
 Tecnologias Utilizadas
 
-Python 3
+Python 
 
 Padrões de Projeto
 
-Observador
+Observer
 
 Método de fábrica
 
-Polimorfismo (via classes abstratas)
+Polimorfismo
 
-Terminal (menu interativo)
+Terminal com menu
 
-Padrões de Projeto Implementados Padrão Observador
+Padrões de Projeto Implementados Padrão Observer
 
 O cliente recebe notificações sempre que:
 
@@ -47,4 +47,4 @@ Cliente
 Factory: 
 
 Pedido
-gráficos-pedidos │ ├── main.py # Código principal com menu interativo └── README.md # Documentação do projeto
+
