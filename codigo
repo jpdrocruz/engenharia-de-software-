@@ -1,0 +1,185 @@
+from abc import ABC, abstractmethod
+
+# observer 
+
+class Observer(ABC):
+    @abstractmethod
+    def update(self, message: str):
+        pass
+
+class Cliente(Observer):
+    def __init__(self, nome):
+        self.nome = nome
+
+    def update(self, message: str):
+        print(f"[NOTIFICAÇÃO] {self.nome}: {message}")
+
+# serviço base 
+
+class Servico(ABC):
+    def __init__(self, nome):
+        self.nome = nome
+
+    @abstractmethod
+    def calcular_preco(self):
+        pass
+
+# serviço por tamanho 
+
+class ServicoTamanho(Servico):
+    def __init__(self, nome, preco_m2, largura, altura):
+        super().__init__(nome)
+        self.preco_m2 = preco_m2
+        self.largura = largura
+        self.altura = altura
+
+    def calcular_preco(self):
+        area = self.largura * self.altura
+        return area * self.preco_m2
+
+# factory
+
+class ServicoFactory:
+    @staticmethod
+    def criar_servico_por_tamanho(tipo, largura, altura):
+        
+        tipos = {
+            "pvc1": 160,
+            "pvc2": 180,
+            "adesivo": 120,
+            "banner": 70
+        }
+
+        if tipo not in tipos:
+            raise ValueError("Tipo de material inválido!")
+
+        preco_m2 = tipos[tipo]
+        nome_material = tipo.upper()
+
+        return ServicoTamanho(nome_material, preco_m2, largura, altura)
+
+# pedido (subject)
+
+class Pedido:
+    def __init__(self, id_pedido, servico, cliente):
+        self.id = id_pedido
+        self.servico = servico
+        self.cliente = cliente
+        self.status = "Aguardando Produção"
+        self.observers = [cliente]
+
+    def notificar(self, msg):
+        for obs in self.observers:
+            obs.update(msg)
+
+    def alterar_status(self, novo_status):
+        self.status = novo_status
+        self.notificar(f"Seu pedido #{self.id} agora está: {novo_status}")
+
+    def enviar_aviso(self, mensagem):
+        self.notificar(f"Aviso sobre o pedido #{self.id}: {mensagem}")
+
+# banco de dados em memória
+
+clientes = {}
+pedidos = {}
+contador_pedidos = 1
+
+# painel para produção
+
+def painel_producao():
+    print("\n===== PAINEL DE PRODUÇÃO =====")
+
+    for p in pedidos.values():
+        status = p.status
+
+        if status.lower() == "finalizado":
+            cor = "\033[92m"  
+        elif status.lower() == "em produção":
+            cor = "\033[93m"  
+        else:
+            cor = "\033[96m"  
+
+        print(f"{cor}ID: {p.id} | Cliente: {p.cliente.nome} | Serviço: {p.servico.nome} | Status: {p.status}\033[0m")
+
+    print()  
+
+# menu
+
+def menu():
+    global contador_pedidos
+
+    while True:
+        print("\n MENU ")
+        print("1 - Criar pedido por tamanho (m²)")
+        print("2 - Alterar status do pedido")
+        print("3 - Enviar aviso ao cliente")
+        print("4 - Ver painel de produção")
+        print("0 - Sair")
+
+        opc = input("Escolha: ")
+
+        if opc == "1":
+            nome = input("Nome do cliente: ")
+
+            # criar se não existir
+            if nome not in clientes:
+                clientes[nome] = Cliente(nome)
+
+            print("\nMateriais disponíveis:")
+            print("pvc1, pvc2, adesivo, banner")
+
+            tipo = input("Material: ").lower()
+            largura = float(input("Largura (m): "))
+            altura = float(input("Altura (m): "))
+
+            try:
+                servico = ServicoFactory.criar_servico_por_tamanho(tipo, largura, altura)
+                preco = servico.calcular_preco()
+
+                pedido = Pedido(contador_pedidos, servico, clientes[nome])
+                pedidos[contador_pedidos] = pedido
+
+                print(f"\nPedido criado!")
+                print(f"ID: {contador_pedidos}")
+                print(f"Cliente: {nome}")
+                print(f"Material: {servico.nome}")
+                print(f"Preço final: R${preco:.2f}")
+
+                contador_pedidos += 1
+
+            except Exception as e:
+                print("Erro:", e)
+
+        elif opc == "2":
+            idp = int(input("ID do pedido: "))
+            if idp not in pedidos:
+                print("Pedido não encontrado!")
+                continue
+
+            novo = input("Novo status: ")
+            pedidos[idp].alterar_status(novo)
+
+        elif opc == "3":
+            idp = int(input("ID do pedido: "))
+            msg = input("Mensagem: ")
+
+            if idp in pedidos:
+                pedidos[idp].enviar_aviso(msg)
+            else:
+                print("Pedido não encontrado!")
+
+        elif opc == "4":
+            painel_producao()
+
+        elif opc == "0":
+            print("Encerrando...")
+            break
+
+        else:
+            print("Opção inválida!")
+
+# executar
+
+if __name__ == "__main__":
+    menu()
