@@ -1,7 +1,5 @@
 from abc import ABC, abstractmethod
 
-# observer 
-
 class Observer(ABC):
     @abstractmethod
     def update(self, message: str):
@@ -14,7 +12,6 @@ class Cliente(Observer):
     def update(self, message: str):
         print(f"[NOTIFICAÇÃO] {self.nome}: {message}")
 
-# serviço base 
 
 class Servico(ABC):
     def __init__(self, nome):
@@ -24,7 +21,6 @@ class Servico(ABC):
     def calcular_preco(self):
         pass
 
-# serviço por tamanho 
 
 class ServicoTamanho(Servico):
     def __init__(self, nome, preco_m2, largura, altura):
@@ -36,8 +32,6 @@ class ServicoTamanho(Servico):
     def calcular_preco(self):
         area = self.largura * self.altura
         return area * self.preco_m2
-
-# factory
 
 class ServicoFactory:
     @staticmethod
@@ -58,7 +52,6 @@ class ServicoFactory:
 
         return ServicoTamanho(nome_material, preco_m2, largura, altura)
 
-# pedido (subject)
 
 class Pedido:
     def __init__(self, id_pedido, servico, cliente):
@@ -79,13 +72,9 @@ class Pedido:
     def enviar_aviso(self, mensagem):
         self.notificar(f"Aviso sobre o pedido #{self.id}: {mensagem}")
 
-# banco de dados em memória
-
 clientes = {}
 pedidos = {}
 contador_pedidos = 1
-
-# painel para produção
 
 def painel_producao():
     print("\n===== PAINEL DE PRODUÇÃO =====")
@@ -103,8 +92,6 @@ def painel_producao():
         print(f"{cor}ID: {p.id} | Cliente: {p.cliente.nome} | Serviço: {p.servico.nome} | Status: {p.status}\033[0m")
 
     print()  
-
-# menu
 
 def menu():
     global contador_pedidos
@@ -178,8 +165,6 @@ def menu():
 
         else:
             print("Opção inválida!")
-
-# executar
 
 if __name__ == "__main__":
     menu()
