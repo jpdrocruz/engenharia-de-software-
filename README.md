@@ -31,6 +31,7 @@ Factory Method (Método de Fábrica)
 Polimorfismo
 
 Padrões de Projeto Implementados
+
 🔹 Padrão Observer
 
 Utilizado para permitir que o cliente receba notificações sempre que:
